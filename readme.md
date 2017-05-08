@@ -13,14 +13,14 @@
 Post
 
 * title
-*author
+* author
 * likes
 * content
 
 User
 
 * name
- * age
+* age
 
 Comments
 

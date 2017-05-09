@@ -1,7 +1,7 @@
 # Social Net
 
->  Task 2
-Forked from blogv3
+> Task 2
+> Forked from blogv3
 
 ## Description
 
@@ -72,6 +72,12 @@ Friend
 
 Comments with authors and 
 Likes for comments
+
+## Status
+
+**In Task formulation**
+
+---
 
 # Blogv3
 

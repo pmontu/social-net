@@ -57,9 +57,5 @@ Likes
     POST /likes/
     {post:} -> {id:}
 
-## Goal
-
-* display posts liked by user
-
     GET /users/{id}/
     -> {posts_liked:[{title:}, {title:}]}

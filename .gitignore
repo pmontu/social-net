@@ -97,3 +97,4 @@ ENV/
 *.ipynb
 reports
 src/
+*.pyc

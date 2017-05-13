@@ -52,16 +52,32 @@ class LikeSerializer(serializers.ModelSerializer):
         fields = ("user", "post", )
 
 
-class ContentSerializer(serializers.Serializer):
-    title = serializers.CharField()
-    id = serializers.PrimaryKeyRelatedField(read_only=True)
+class HyperlinkedRelatedField(serializers.HyperlinkedRelatedField):
+    def get_url(self, obj, view_name, request, format):
+        """
+        Given an object, return the URL that hyperlinks to the object.
+
+        May raise a `NoReverseMatch` if the `view_name` and `lookup_field`
+        attributes are not configured to correctly match the URL conf.
+        """
+        # Unsaved objects will not yet have a valid URL.
+        if hasattr(obj, 'pk') and obj.pk in (None, ''):
+            return None
+
+        lookup_value = getattr(obj, self.lookup_field)
+        kwargs = {self.lookup_url_kwarg: lookup_value}
+        kwargs["user_id"] = self.context["view"].kwargs["pk"]
+        return self.reverse(view_name, kwargs=kwargs, request=request, format=format)
 
 
 class UserSerializer(serializers.ModelSerializer):
-    recent_likes = ContentSerializer(
+    recent_likes = HyperlinkedRelatedField(
         many=True,
         read_only=True,
-        source="get_recent_posts_liked"
+        source="get_recent_posts_liked",
+        view_name="post-detail",
+        lookup_field="pk",
+        lookup_url_kwarg="pk"
      )
 
     class Meta:

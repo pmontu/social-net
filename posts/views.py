@@ -13,6 +13,7 @@ class PostsViewSet(ModelViewSet):
         queryset = Post.objects.filter()
         permission_classes = (IsOwnerOrReadOnly,)
         filter_fields = ("author",)
+        model = Post
 
         def filter_queryset(self, queryset):
             queryset = super(PostsViewSet, self).filter_queryset(queryset)
